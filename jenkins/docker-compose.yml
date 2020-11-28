@@ -1,0 +1,18 @@
+version: '3.3'
+services:
+  jenkins:
+    image: jenkins/jenkins:lts
+    privileged: true
+    user: root
+    ports:
+      - 9090:8080
+      - 50000:50000
+    container_name: jenkins
+    volumes:
+      - ./jenkins:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock
+      - /usr/local/bin/docker:/usr/local/bin/docker
+      - /opt/tomcat/apache-tomcat-7.0.105:/opt/tomcat/apache-tomcat-7.0.105
+      - /usr/bin/docker:/usr/bin/docker
+
+    restart: always

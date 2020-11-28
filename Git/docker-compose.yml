@@ -1,0 +1,23 @@
+version: '3.3'
+
+services:
+  gitlab-web:
+    image: gitlab/gitlab-ce:latest
+    container_name: gitlab-web
+    hostname: 'gitlab.example.com'
+    volumes:
+      - './gitlab-config:/etc/gitlab'
+      - './gitlab-logs:/var/log/gitlab'
+      - './gitlab-data:/var/opt/gitlab'
+    ports:
+     - '2222:22'
+     - '80:80'
+     - '4433:443'
+     - '4567:4567'
+    environment:
+      GITLAB_OMNIBUS_CONFIG: |
+        external_url 'http://gitlab.example.com'
+        unicorn['worker_timeout'] = 120
+        unicorn['worker_processes'] = 2
+
+    restart: always
